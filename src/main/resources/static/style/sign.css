@@ -1,0 +1,165 @@
+* {
+    margin: 0;
+    padding: 0;
+    border: none;
+    outline: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+li {
+    list-style-type: none;
+}
+
+body {
+    font-size: 12px;
+    background: linear-gradient(33deg, hsl(283, 74%, 57%), hsl(349, 77%, 65%), hsl(6, 94%, 76%));
+}
+
+.header-content-mask {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+}
+
+.header-content-welcome {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    padding: 2em 0;
+    box-shadow: 0 0 80px hsl(0, 0%, 15%);
+    background: linear-gradient(33deg, hsl(283, 74%, 57%), hsl(349, 77%, 65%), hsl(6, 94%, 76%));
+}
+
+.header-content-welcome .explain-title {
+    font-size: 26px;
+    font-weight: 900;
+    letter-spacing: 6px;
+    margin-bottom: 1em;
+    background: linear-gradient(to right, hsl(240, 6%, 18%), hsl(242, 23%, 27%));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.header-content-welcome .case {
+    background: hsl(0, 0%, 0%);
+}
+
+.header-content-welcome .case:hover {
+    background: transparent;
+}
+
+.container-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 3em 0;
+}
+
+.content-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 40em;
+    border: 1px solid hsl(0, 0%, 15%);
+    border-radius: 5px;
+    background: hsl(242, 23%, 27%);
+}
+
+.content-form .form-title {
+    font-size: 24px;
+    font-weight: 900;
+    letter-spacing: 8px;
+    margin-top: 1.4em;
+    background: linear-gradient(to right, hsl(349, 77%, 65%), hsl(7, 95%, 76%));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.content-form form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.content-form .container-input-field {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 28em;
+}
+
+.content-form form label {
+    position: relative;
+}
+
+.content-form form input {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    width: 21.5em;
+    height: 2.5em;
+    margin-bottom: 1.4em;
+    padding: 6px 4px 2px 20px;
+    color: hsl(0, 0%, 82%);
+    background: hsl(240, 20%, 37%);
+    border-radius: 8px;
+}
+
+.content-form form button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    width: 10.3125em;
+    height: 2.5em;
+    margin-bottom: 2em;
+    color: hsl(0, 0%, 100%);
+    background: linear-gradient(to right, hsl(349, 77%, 65%), hsl(7, 95%, 76%));
+    border-radius: 20px;
+}
+
+.content-form form input:focus, .content-form form button:focus,
+.content-form .form-sign a:focus {
+    outline: -webkit-focus-ring-color auto 1px;
+    box-shadow: 0 0 5px hsl(214, 82%, 51%);
+}
+
+.content-form .form-sign {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    width: 20.625em;
+    height: 2.5em;
+    margin-bottom: 2em;
+    background: linear-gradient(to right, hsl(281, 95%, 71%), hsl(241, 84%, 67%));
+    border-radius: 20px;
+}
+
+.content-form .form-sign a {
+    color: hsl(0, 0%, 100%);
+}
+
+#caseOne, #caseTwo {
+    position: absolute;
+    bottom: .2em;
+    right: 1em;
+    font-size: 12px;
+    color: hsl(0, 100%, 50%);
+}
