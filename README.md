@@ -1,4 +1,4 @@
-# Jsp - Spring boot - Jpa - MySQL
+# Jsp-Spring boot-Jpa-MySQL
 
 [![Github License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/SUPMColdRain/jsp-springboot-jpa-mysql/blob/master/LICENSE)
 [![spring boot](https://img.shields.io/badge/springboot-2.21-green.svg)](https://spring.io/projects/spring-boot)
