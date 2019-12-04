@@ -1,18 +1,3 @@
-* {
-    margin: 0;
-    padding: 0;
-    border: none;
-    outline: none;
-}
-
-a {
-    text-decoration: none;
-}
-
-li {
-    list-style-type: none;
-}
-
 body {
     font-size: 12px;
     background: linear-gradient(33deg, hsl(283, 74%, 57%), hsl(349, 77%, 65%), hsl(6, 94%, 76%));

@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-//@RestController
-@Controller
-@RequestMapping("/student")
+@RestController
+//@Controller
+@RequestMapping("/api/student")
 public class StudentController {
 
     @Autowired

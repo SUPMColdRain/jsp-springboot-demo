@@ -10,6 +10,7 @@
 <head>
     <meta charset="UTF-8">
     <title>学生信息中心</title>
+    <link rel="stylesheet" type="text/css" href="style/index.css"/>
     <link rel="stylesheet" type="text/css" href="style/sign.css"/>
 </head>
 <body>

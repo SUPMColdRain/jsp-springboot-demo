@@ -1,45 +1,38 @@
 package com.jsp.exam.entity;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
-import java.util.Date;
+import java.sql.Timestamp;
+import java.util.Objects;
 
 @Entity
-@Table(name = "stu_inf")
+@Table(name = "stu_inf", schema = "test", catalog = "")
 public class Student {
-
-    @Id
-    @GeneratedValue
-    private Integer id;
-
-    @NotEmpty(message = "学号不能为空")
-    @Column(length = 10)
+    private int id;
     private String serialNumber;
-
-    @NotEmpty(message = "姓名不能为空")
     private String stuName;
-
     private String avatar;
     private String describes;
     private String stuClass;
     private String sex;
-
-    @NotEmpty(message = "年龄不能为空")
     private int age;
     private int jsp;
     private int math;
     private int c;
-    private Date createDate;
-    private Date updateDate;
+    private Timestamp createDate;
+    private Timestamp updateDate;
 
-    public Integer getId() {
+    @Id
+    @Column(name = "id", nullable = false)
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
+    @Basic
+    @Column(name = "serialNumber", nullable = false, length = 10)
     public String getSerialNumber() {
         return serialNumber;
     }
@@ -48,6 +41,8 @@ public class Student {
         this.serialNumber = serialNumber;
     }
 
+    @Basic
+    @Column(name = "stuName", nullable = false, length = 20)
     public String getStuName() {
         return stuName;
     }
@@ -56,6 +51,8 @@ public class Student {
         this.stuName = stuName;
     }
 
+    @Basic
+    @Column(name = "avatar", nullable = true, length = 128)
     public String getAvatar() {
         return avatar;
     }
@@ -64,6 +61,8 @@ public class Student {
         this.avatar = avatar;
     }
 
+    @Basic
+    @Column(name = "describes", nullable = true, length = 256)
     public String getDescribes() {
         return describes;
     }
@@ -72,6 +71,8 @@ public class Student {
         this.describes = describes;
     }
 
+    @Basic
+    @Column(name = "stuClass", nullable = false, length = 30)
     public String getStuClass() {
         return stuClass;
     }
@@ -80,6 +81,8 @@ public class Student {
         this.stuClass = stuClass;
     }
 
+    @Basic
+    @Column(name = "sex", nullable = false, length = 6)
     public String getSex() {
         return sex;
     }
@@ -88,6 +91,8 @@ public class Student {
         this.sex = sex;
     }
 
+    @Basic
+    @Column(name = "age", nullable = false)
     public int getAge() {
         return age;
     }
@@ -96,6 +101,8 @@ public class Student {
         this.age = age;
     }
 
+    @Basic
+    @Column(name = "jsp", nullable = false)
     public int getJsp() {
         return jsp;
     }
@@ -104,6 +111,8 @@ public class Student {
         this.jsp = jsp;
     }
 
+    @Basic
+    @Column(name = "math", nullable = false)
     public int getMath() {
         return math;
     }
@@ -112,6 +121,8 @@ public class Student {
         this.math = math;
     }
 
+    @Basic
+    @Column(name = "c", nullable = false)
     public int getC() {
         return c;
     }
@@ -120,19 +131,48 @@ public class Student {
         this.c = c;
     }
 
-    public Date getCreateDate() {
+    @Basic
+    @Column(name = "createDate", nullable = false)
+    public Timestamp getCreateDate() {
         return createDate;
     }
 
-    public void setUpdateDate(Date updateDate) {
-        this.updateDate = updateDate;
+    public void setCreateDate(Timestamp createDate) {
+        this.createDate = createDate;
     }
 
-    public Date getUpdateDate() {
+    @Basic
+    @Column(name = "updateDate", nullable = false)
+    public Timestamp getUpdateDate() {
         return updateDate;
     }
 
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
+    public void setUpdateDate(Timestamp updateDate) {
+        this.updateDate = updateDate;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Student student = (Student) o;
+        return id == student.id &&
+                age == student.age &&
+                jsp == student.jsp &&
+                math == student.math &&
+                c == student.c &&
+                Objects.equals(serialNumber, student.serialNumber) &&
+                Objects.equals(stuName, student.stuName) &&
+                Objects.equals(avatar, student.avatar) &&
+                Objects.equals(describes, student.describes) &&
+                Objects.equals(stuClass, student.stuClass) &&
+                Objects.equals(sex, student.sex) &&
+                Objects.equals(createDate, student.createDate) &&
+                Objects.equals(updateDate, student.updateDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, serialNumber, stuName, avatar, describes, stuClass, sex, age, jsp, math, c, createDate, updateDate);
     }
 }
