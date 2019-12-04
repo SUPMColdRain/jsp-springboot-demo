@@ -1,4 +1,4 @@
-package com.jsp.exam.configure;
+package com.jsp.exam.config;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
