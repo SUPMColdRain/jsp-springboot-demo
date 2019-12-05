@@ -26,7 +26,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         logger.info("add interceptors");
         registry.addInterceptor(new GlobalInterceptor())
-                .excludePathPatterns(Arrays.asList("/favicon.ico", "/style/**"));
+                .excludePathPatterns(Arrays.asList("/favicon.ico", "/style/**", "/selfie.jpg", "/avatar.png"));
     }
 
     @Bean

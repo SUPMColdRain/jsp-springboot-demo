@@ -10,6 +10,8 @@
     top: 0;
     left: 0;
     right: 0;
+    color: hsl(0, 0%, 74%);
+    background: hsl(228, 6%, 16%);
 }
 
 .content-banner {
@@ -20,7 +22,23 @@
     width: 1232px;
 }
 
-.content-banner img {
-    width: 4em;
-    height: 4em;
+.module-logo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+}
+
+.module-logo-title {
+    font-size: 20px;
+    font-weight: 900;
+    margin: 0 .8em;
+}
+
+.container-banner-tags {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    width: 40em;
 }
