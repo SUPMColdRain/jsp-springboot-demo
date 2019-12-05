@@ -1,15 +1,15 @@
 package com.jsp.exam.entity;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
-@Table(name = "user_inf", schema = "test")
 public class User {
     private int id;
-    private String serialNumber;
     private String userPwd;
     private Timestamp createDate;
     private Timestamp updateDate;
@@ -25,18 +25,6 @@ public class User {
     }
 
     @Basic
-    @NotEmpty(message = "学号不能为空")
-    @Column(name = "serialNumber", nullable = false, length = 10)
-    public String getSerialNumber() {
-        return serialNumber;
-    }
-
-    public void setSerialNumber(String serialNumber) {
-        this.serialNumber = serialNumber;
-    }
-
-    @Basic
-    @NotEmpty(message = "密码不能为空")
     @Column(name = "userPwd", nullable = false, length = 18)
     public String getUserPwd() {
         return userPwd;
@@ -70,16 +58,15 @@ public class User {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        User that = (User) o;
-        return id == that.id &&
-                Objects.equals(serialNumber, that.serialNumber) &&
-                Objects.equals(userPwd, that.userPwd) &&
-                Objects.equals(createDate, that.createDate) &&
-                Objects.equals(updateDate, that.updateDate);
+        User user = (User) o;
+        return id == user.id &&
+                Objects.equals(userPwd, user.userPwd) &&
+                Objects.equals(createDate, user.createDate) &&
+                Objects.equals(updateDate, user.updateDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, serialNumber, userPwd, createDate, updateDate);
+        return Objects.hash(id, userPwd, createDate, updateDate);
     }
 }

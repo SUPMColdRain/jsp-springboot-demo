@@ -1,18 +1,16 @@
 package com.jsp.exam.entity;
 
-import javax.persistence.*;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
-@Table(name = "stu_inf", schema = "test", catalog = "")
 public class Student {
     private int id;
-    private String serialNumber;
     private String stuName;
-    private String avatar;
-    private String describes;
-    private String stuClass;
     private String sex;
     private int age;
     private int jsp;
@@ -32,17 +30,7 @@ public class Student {
     }
 
     @Basic
-    @Column(name = "serialNumber", nullable = false, length = 10)
-    public String getSerialNumber() {
-        return serialNumber;
-    }
-
-    public void setSerialNumber(String serialNumber) {
-        this.serialNumber = serialNumber;
-    }
-
-    @Basic
-    @Column(name = "stuName", nullable = false, length = 20)
+    @Column(name = "stuName", nullable = false, length = 12)
     public String getStuName() {
         return stuName;
     }
@@ -52,37 +40,7 @@ public class Student {
     }
 
     @Basic
-    @Column(name = "avatar", nullable = true, length = 128)
-    public String getAvatar() {
-        return avatar;
-    }
-
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
-    }
-
-    @Basic
-    @Column(name = "describes", nullable = true, length = 256)
-    public String getDescribes() {
-        return describes;
-    }
-
-    public void setDescribes(String describes) {
-        this.describes = describes;
-    }
-
-    @Basic
-    @Column(name = "stuClass", nullable = false, length = 30)
-    public String getStuClass() {
-        return stuClass;
-    }
-
-    public void setStuClass(String stuClass) {
-        this.stuClass = stuClass;
-    }
-
-    @Basic
-    @Column(name = "sex", nullable = false, length = 6)
+    @Column(name = "sex", nullable = false, length = 4)
     public String getSex() {
         return sex;
     }
@@ -161,11 +119,7 @@ public class Student {
                 jsp == student.jsp &&
                 math == student.math &&
                 c == student.c &&
-                Objects.equals(serialNumber, student.serialNumber) &&
                 Objects.equals(stuName, student.stuName) &&
-                Objects.equals(avatar, student.avatar) &&
-                Objects.equals(describes, student.describes) &&
-                Objects.equals(stuClass, student.stuClass) &&
                 Objects.equals(sex, student.sex) &&
                 Objects.equals(createDate, student.createDate) &&
                 Objects.equals(updateDate, student.updateDate);
@@ -173,6 +127,6 @@ public class Student {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, serialNumber, stuName, avatar, describes, stuClass, sex, age, jsp, math, c, createDate, updateDate);
+        return Objects.hash(id, stuName, sex, age, jsp, math, c, createDate, updateDate);
     }
 }
