@@ -82,7 +82,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 28em;
+    min-height: 28em;
 }
 
 .content-form form label {

@@ -5,7 +5,7 @@
     flex-direction: row;
     font-size: 16px;
     width: 100%;
-    height: 5em;
+    height: 6em;
     position: fixed;
     top: 0;
     left: 0;
@@ -19,7 +19,7 @@
     justify-content: space-between;
     align-items: center;
     flex-direction: row;
-    width: 1232px;
+    min-width: 1584px;
 }
 
 .module-logo {
@@ -40,5 +40,5 @@
     justify-content: space-between;
     align-items: center;
     flex-direction: row;
-    width: 40em;
+    width: 60em;
 }

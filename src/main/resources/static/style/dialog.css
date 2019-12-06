@@ -1,0 +1,119 @@
+#container-edit {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+    font-size: 16px;
+    width: 58em;
+    height: 40em;
+    position: fixed;
+    top: calc(50vh - 20em);
+    left: calc(50vw - 29em);
+    border: 1px solid hsl(0, 0%, 15%);
+    border-radius: 5px;
+    background: hsl(242, 23%, 27%);
+    box-shadow: 0 0 5px hsl(0, 0%, 76%), 0 0 8px hsl(0, 0%, 63%);
+    visibility: hidden;
+}
+
+.content-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.content-form .form-title {
+    font-size: 24px;
+    font-weight: 900;
+    letter-spacing: 8px;
+    margin: 1.2em 0 1em;
+    background: linear-gradient(to right, hsl(349, 77%, 65%), hsl(7, 95%, 76%));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.content-form form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.content-form .container-input-field {
+    display: grid;
+    grid-template-columns: repeat(2, 23em);
+    grid-template-rows: repeat(5, 6em);
+    min-width: 46em;
+    min-height: 30em;
+}
+
+.content-form form label {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.content-form form input, .content-form select {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    width: 21.5em;
+    height: 2.5em;
+    margin-bottom: 1.4em;
+    padding: 6px 4px 2px 20px;
+    color: hsl(0, 0%, 82%);
+    background: hsl(240, 20%, 37%);
+    border-radius: 8px;
+}
+
+.content-form .module-btn {
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    flex-direction: row;
+    font-size: 16px;
+    width: 30em;
+    margin-bottom: 2em;
+    color: hsl(0, 0%, 100%);
+}
+
+.content-form form button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 10.3125em;
+    height: 2.5em;
+    border-radius: 20px;
+}
+
+.content-form button[type=submit] {
+    background: linear-gradient(to right, hsl(349, 77%, 65%), hsl(7, 95%, 76%));
+}
+
+.content-form button[type=button] {
+    background: linear-gradient(to right, #ce6dfb, #6865f2);
+}
+
+.content-form form input:focus, .content-form form button:focus {
+    outline: -webkit-focus-ring-color auto 1px;
+    box-shadow: 0 0 5px hsl(214, 82%, 51%);
+}
+
+.content-form .form-sign {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    width: 20.625em;
+    height: 2.5em;
+    margin-bottom: 2em;
+    background: linear-gradient(to right, hsl(281, 95%, 71%), hsl(241, 84%, 67%));
+    border-radius: 20px;
+}
