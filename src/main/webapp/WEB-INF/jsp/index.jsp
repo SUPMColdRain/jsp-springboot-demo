@@ -13,7 +13,6 @@
     <link rel="stylesheet" type="text/css" href="style/list.css"/>
     <link rel="stylesheet" type="text/css" href="style/banner.css"/>
     <link rel="stylesheet" type="text/css" href="style/dialog.css"/>
-    <link rel="stylesheet" type="text/css" href="style/action.css"/>
 </head>
 <body>
 
@@ -22,9 +21,9 @@
 <div class="container-list">
     <div class="container-list-action">
         <div class="content-list-action">
-            <form>
+            <form id="content-query-form">
                 <label>
-                    <input name="requireField" type="text" autocomplete="on" aria-autocomplete="list"/>
+                    <input name="require" type="text" autocomplete="on" aria-autocomplete="list"/>
                 </label>
                 <button type="submit">搜索</button>
             </form>
@@ -32,8 +31,8 @@
         </div>
     </div>
 
-    <ul id="student-list" class="container-table">
-        <li class="content-table content-table-title">
+    <div class="container-table">
+        <div class="content-table content-table-title">
             <div>学号</div>
             <div>姓名</div>
             <div>性别</div>
@@ -45,8 +44,11 @@
             <div>更新日期</div>
             <div>编辑</div>
             <div>删除</div>
-        </li>
-    </ul>
+        </div>
+
+        <ul id="student-query"></ul>
+        <ul id="student-list"></ul>
+    </div>
 </div>
 
 <dialog id="container-edit">
@@ -142,18 +144,32 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script type="text/javascript">
     let conEdit = $("#container-edit");
+    let stuQuery = $("#student-query");
+    let stuList = $("#student-list");
+    let formQuery = $("#content-query-form");
     let formAdd = $("#content-add-form");
     let formEdit = $("#content-edit-form");
-    let formTitle = $('#content-form-title');
+    let formTitle = $("#content-form-title");
 
     $(document).ready(function () {
+        stuQuery.css({
+            "visibility": "hidden",
+            "display": "none"
+        }).empty();
+
+        stuList.css({
+            "visibility": "visible",
+            "display": "flex"
+        }).empty();
+
         $.ajax({
             type: "GET",
             url: "/api/student/list",
             cache: false,
             dataType: 'json',
             success: function (data) {
-                console.log('data: ', data);
+                console.log('list data: ', data);
+
                 $.each(data, function (n, value) {
                     let str = "<li class='content-table'>" +
                         "<div>" + value["id"] + "</div>" +
@@ -167,7 +183,7 @@
                         "<div>" + value["updateDate"].slice(0, 10) + ' ' + value["updateDate"].slice(11, 19) + "</div>" +
                         "<div><button onclick='updateStu(" + JSON.stringify(value) + ")'>编辑</button></div>" +
                         "<div><button onclick='deleteStu(" + value["id"] + ")'>删除</button></div></li>";
-                    $("#student-list").append(str);
+                    stuList.append(str);
                 });
             },
             error: function (error) {
@@ -175,6 +191,32 @@
             }
         })
     });
+
+    function showTips(content, x, y, time) {
+        let tipsDiv = '<div class="tipsClass">' + content + '</div>';
+
+        $('body').append(tipsDiv);
+        $('div.tipsClass').css({
+            'font-size': 16 + 'px',
+            'display': 'flex',
+            'justify-content': 'center',
+            'align-items': 'center',
+            'text-align': 'center',
+            'position': 'fixed',
+            'bottom': y,
+            'right': x,
+            'width': '10.3125em',
+            'height': '2.5em',
+            'box-shadow': '0 0 5px hsl(0, 47%, 42%)',
+            'border-radius': '5px',
+            'color': 'hsl(0, 0%, 100%)',
+            'background': 'rgb(217, 23, 23)',
+            'z-index': '999'
+        }).show();
+        setTimeout(function () {
+            $('div.tipsClass').fadeOut();
+        }, (time * 1000));
+    }
 
     function addStu() {
         conEdit.css({
@@ -189,7 +231,7 @@
             "visibility": "hidden",
             "display": "none"
         });
-        formTitle.html("新建学员信息");
+        formTitle.html("新增学员信息");
     }
 
     function updateStu(value) {
@@ -207,7 +249,7 @@
             "visibility": "hidden",
             "display": "none"
         });
-        formTitle.html("编辑学员信息");
+        formTitle.html("更新学员信息");
         $("#content-edit-form input[name=id]").val(arguments[0]["id"]);
         $("#content-edit-form input[name=stuName]").val(arguments[0]["stuName"]);
         $("#content-edit-form select[name=sex]").val(arguments[0]["sex"]);
@@ -220,12 +262,18 @@
     }
 
     function deleteStu(id) {
-        $.ajax({
-            type: "DELETE",
-            url: "/api/student/delete/" + id,
-            dataType: "json"
-        });
-        window.location.reload();
+        if (window.confirm("您确认删除 学号: " + id + " 的学员吗？")) {
+            $.ajax({
+                type: "DELETE",
+                url: "/api/student/delete/" + id,
+                dataType: "json"
+            });
+
+            showTips("删除成功", "3em", "2em", 3);
+            setTimeout(function () {
+                window.location.reload();
+            }, 1000)
+        }
     }
 
     function cancelSubmit() {
@@ -253,6 +301,48 @@
         return param;
     };
 
+    formQuery.on("submit", function (e) {
+        e.preventDefault();
+
+        $.ajax({
+            type: "GET",
+            url: "/api/student/query/" + formQuery.serialize().slice(8),
+            cache: false,
+            dataType: "json",
+            success: function (data) {
+                console.log('query data: ', data);
+
+                stuQuery.css({
+                    "visibility": "visible",
+                    "display": "flex"
+                }).empty();
+                stuList.css({
+                    "visibility": "hidden",
+                    "display": "none"
+                }).empty();
+
+                $.each(data, function (n, value) {
+                    let str = "<li class='content-table'>" +
+                        "<div>" + value["id"] + "</div>" +
+                        "<div>" + value["stuName"] + "</div>" +
+                        "<div>" + value["sex"] + "</div>" +
+                        "<div>" + value["age"] + "</div>" +
+                        "<div>" + value["jsp"] + "</div>" +
+                        "<div>" + value["math"] + "</div>" +
+                        "<div>" + value["c"] + "</div>" +
+                        "<div>" + value["createDate"].slice(0, 10) + ' ' + value["createDate"].slice(11, 19) + "</div>" +
+                        "<div>" + value["updateDate"].slice(0, 10) + ' ' + value["updateDate"].slice(11, 19) + "</div>" +
+                        "<div><button onclick='updateStu(" + JSON.stringify(value) + ")'>编辑</button></div>" +
+                        "<div><button onclick='deleteStu(" + value["id"] + ")'>删除</button></div></li>";
+                    stuQuery.append(str);
+                });
+            },
+            error: function (error) {
+                throw error;
+            }
+        });
+    });
+
     formAdd.on("submit", function (e) {
         console.log("formAdd.serializeFormToJson(): ", formAdd.serializeFormToJson());
         e.preventDefault();
@@ -263,7 +353,12 @@
             data: formAdd.serializeFormToJson(),
             dataType: "json"
         });
-        window.location.reload();
+
+        cancelSubmit();
+        showTips("新增成功", "3em", "2em", 3);
+        setTimeout(function () {
+            window.location.reload();
+        }, 1000)
     });
 
     formEdit.on("submit", function (e) {
@@ -276,7 +371,12 @@
             data: formEdit.serializeFormToJson(),
             dataType: "json"
         });
-        window.location.reload();
+
+        cancelSubmit();
+        showTips("更新成功", "3em", "2em", 3);
+        setTimeout(function () {
+            window.location.reload();
+        }, 1000)
     });
 </script>
 </body>

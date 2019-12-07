@@ -21,7 +21,7 @@ public class StudentController {
     }
 
     @GetMapping("/query/{id}")
-    public Student findStudentRestful(@PathVariable("id") Integer id) {
+    public List<Student> findStudentRestful(@PathVariable("id") String id) {
         return studentService.findStudent(id);
     }
 

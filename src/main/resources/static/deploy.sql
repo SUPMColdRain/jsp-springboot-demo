@@ -114,4 +114,4 @@ begin
         end while;
 end;
 
-call student_add(100);
+call student_add(50);

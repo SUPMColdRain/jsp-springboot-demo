@@ -7,12 +7,18 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 /**
  * 复杂的接口需要自己添加
  */
 @Repository
 public interface StudentDao extends JpaRepository<Student, Integer> {
+
+    @Transactional
+    @Modifying(clearAutomatically = true)
+    @Query(value = "SELECT * FROM student WHERE id LIKE CONCAT('%', ?1, '%') OR stuName LIKE CONCAT('%', ?1, '%') OR sex LIKE CONCAT('%', ?1, '%') OR age LIKE CONCAT('%', ?1, '%') OR jsp LIKE CONCAT('%', ?1, '%') OR math LIKE CONCAT('%', ?1, '%') OR c LIKE CONCAT('%', ?1, '%')", nativeQuery = true)
+    List<Student> query(String id);
 
     @Transactional
     @Modifying(clearAutomatically = true)
