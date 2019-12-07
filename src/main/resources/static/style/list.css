@@ -6,6 +6,14 @@ body {
     background: linear-gradient(180deg, hsl(210, 54%, 63%), transparent, transparent) fixed;
 }
 
+.container-list {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+    margin-top: 8em;
+}
+
 .container-table {
     display: flex;
     align-items: center;
@@ -13,7 +21,7 @@ body {
     flex-direction: column;
     font-size: 16px;
     min-width: 1584px;
-    margin-top: 8em;
+    min-height: 50vh;
     background: hsl(0, 0%, 100%);
     border: 1px solid hsl(0, 0%, 83%);
     border-radius: 8px;
@@ -43,6 +51,11 @@ body {
     flex-direction: column;
     text-align: center;
     border-bottom: 1px solid hsl(0, 0%, 88%);
+    transition: all .1s linear;
+}
+
+.content-table div:hover {
+    background: hsl(0, 0%, 89%);
 }
 
 .content-table button {

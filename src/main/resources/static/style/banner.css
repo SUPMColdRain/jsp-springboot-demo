@@ -12,6 +12,7 @@
     right: 0;
     color: hsl(0, 0%, 74%);
     background: hsl(228, 6%, 16%);
+    z-index: 990;
 }
 
 .content-banner {

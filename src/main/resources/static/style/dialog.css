@@ -13,6 +13,7 @@
     border-radius: 5px;
     background: hsl(242, 23%, 27%);
     box-shadow: 0 0 5px hsl(0, 0%, 76%), 0 0 8px hsl(0, 0%, 63%);
+    z-index: 999;
     visibility: hidden;
 }
 
@@ -98,6 +99,10 @@
 
 .content-form button[type=button] {
     background: linear-gradient(to right, #ce6dfb, #6865f2);
+}
+
+.content-form input[readonly] {
+    background: hsla(0, 0%, 26%, 1);
 }
 
 .content-form form input:focus, .content-form form button:focus {

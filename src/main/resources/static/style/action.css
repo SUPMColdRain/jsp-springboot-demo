@@ -1,0 +1,68 @@
+.container-list-action {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    margin-bottom: 1em;
+}
+
+.content-list-action {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    min-width: 1584px;
+}
+
+.content-list-action form {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    border-radius: 8px;
+    box-shadow: 0 0 8px hsl(228, 4%, 42%);
+}
+
+.content-list-action form button[type=submit] {
+    position: absolute;
+    right: 0;
+    height: 100%;
+    padding: 0 1em;
+    background: hsl(228, 15%, 23%);
+    color: white;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    cursor: pointer;
+}
+
+.content-list-action input[type=text][name=requireField] {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    width: 26em;
+    height: 2.8em;
+    padding: .3em 4.5em .2em .5em;
+    color: hsl(0, 0%, 82%);
+    background: hsl(240, 20%, 37%);
+    border-radius: 8px;
+    letter-spacing: 2px;
+}
+
+.content-list-action button[type=button] {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 6em;
+    height: 3em;
+    padding: 0 1em;
+    background: hsl(0, 0%, 95%);
+    color: hsl(228, 6%, 16%);
+    border: 1px solid hsl(228, 5%, 72%);
+    box-shadow: 0 0 8px hsl(228, 4%, 42%);
+    border-radius: 8px;
+    cursor: pointer;
+}

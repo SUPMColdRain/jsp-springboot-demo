@@ -15,7 +15,8 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public void addStudent(Student student) {
-        studentDao.save(student);
+        studentDao.add(student.getStuName(), student.getSex(), student.getAge(), student.getJsp(),
+                student.getMath(), student.getC());
     }
 
     @Override
@@ -25,7 +26,8 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public void updateStudent(Student student) {
-        studentDao.save(student);
+        studentDao.update(student.getStuName(), student.getSex(), student.getAge(), student.getJsp(),
+                student.getMath(), student.getC(), student.getId());
     }
 
     @Override

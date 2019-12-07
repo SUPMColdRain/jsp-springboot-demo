@@ -13,37 +13,88 @@
     <link rel="stylesheet" type="text/css" href="style/list.css"/>
     <link rel="stylesheet" type="text/css" href="style/banner.css"/>
     <link rel="stylesheet" type="text/css" href="style/dialog.css"/>
+    <link rel="stylesheet" type="text/css" href="style/action.css"/>
 </head>
 <body>
 
 <%@ include file="banner.jsp" %>
 
-<ul id="student-list" class="container-table">
-    <li class="content-table content-table-title">
-        <div>学号</div>
-        <div>姓名</div>
-        <div>性别</div>
-        <div>年龄</div>
-        <div>JSP</div>
-        <div>MATH</div>
-        <div>C</div>
-        <div>创建日期</div>
-        <div>更新日期</div>
-        <div>编辑</div>
-        <div>删除</div>
-    </li>
-</ul>
+<div class="container-list">
+    <div class="container-list-action">
+        <div class="content-list-action">
+            <form>
+                <label>
+                    <input name="requireField" type="text" autocomplete="on" aria-autocomplete="list"/>
+                </label>
+                <button type="submit">搜索</button>
+            </form>
+            <button type="button" onclick="addStu()">新增</button>
+        </div>
+    </div>
+
+    <ul id="student-list" class="container-table">
+        <li class="content-table content-table-title">
+            <div>学号</div>
+            <div>姓名</div>
+            <div>性别</div>
+            <div>年龄</div>
+            <div>JSP</div>
+            <div>MATH</div>
+            <div>C</div>
+            <div>创建日期</div>
+            <div>更新日期</div>
+            <div>编辑</div>
+            <div>删除</div>
+        </li>
+    </ul>
+</div>
 
 <dialog id="container-edit">
     <div class="content-form">
         <div class="form-title">
-            <p>编辑学员信息</p>
+            <p id="content-form-title"></p>
         </div>
-        <form name="content-edit-form">
+
+        <form id="content-add-form">
+            <div class="container-input-field">
+                <label>
+                    <input name="stuName" type="text" placeholder="姓名" autocomplete="on"
+                           required aria-required="true"/>
+                </label>
+                <label>
+                    <select name="sex" required aria-required="true">
+                        <option value="男">男</option>
+                        <option value="女">女</option>
+                    </select>
+                </label>
+                <label>
+                    <input name="age" type="text" placeholder="年龄" autocomplete="on"
+                           required aria-required="true"/>
+                </label>
+                <label>
+                    <input name="jsp" type="text" placeholder="jsp分数" autocomplete="on"
+                           required aria-required="true"/>
+                </label>
+                <label>
+                    <input name="math" type="text" placeholder="math分数" autocomplete="on"
+                           required aria-required="true"/>
+                </label>
+                <label>
+                    <input name="c" type="text" placeholder="c分数" autocomplete="on"
+                           required aria-required="true"/>
+                </label>
+            </div>
+            <div class="module-btn">
+                <button type="button" onclick="cancelSubmit()">取消</button>
+                <button type="submit">确定</button>
+            </div>
+        </form>
+
+        <form id="content-edit-form">
             <div class="container-input-field">
                 <label>
                     <input name="id" type="text" placeholder="学号" autocomplete="on"
-                           required aria-required="true" readonly disabled/>
+                           required aria-required="true" readonly/>
                 </label>
                 <label>
                     <input name="stuName" type="text" placeholder="姓名" autocomplete="on"
@@ -90,7 +141,10 @@
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script type="text/javascript">
-    let conEdit = document.getElementById("container-edit");
+    let conEdit = $("#container-edit");
+    let formAdd = $("#content-add-form");
+    let formEdit = $("#content-edit-form");
+    let formTitle = $('#content-form-title');
 
     $(document).ready(function () {
         $.ajax({
@@ -122,57 +176,107 @@
         })
     });
 
+    function addStu() {
+        conEdit.css({
+            "visibility": "visible",
+            "display": "flex"
+        });
+        formAdd.css({
+            "visibility": "visible",
+            "display": "flex"
+        });
+        formEdit.css({
+            "visibility": "hidden",
+            "display": "none"
+        });
+        formTitle.html("新建学员信息");
+    }
+
     function updateStu(value) {
         console.log("value: ", value);
         console.log("arguments: ", arguments);
-        conEdit.style.visibility = "visible";
-        // conEdit.action = "/api/student/update";
-        $("input[name=id]").val(arguments[0]["id"]);
-        $("input[name=stuName]").val(arguments[0]["stuName"]);
-        $("select[name=sex]").val(arguments[0]["sex"]);
-        $("input[name=age]").val(arguments[0]["age"]);
-        $("input[name=jsp]").val(arguments[0]["jsp"]);
-        $("input[name=math]").val(arguments[0]["math"]);
-        $("input[name=c]").val(arguments[0]["c"]);
-        $("input[name=createDate]").val(arguments[0]["createDate"].slice(0, 10) + ' ' + arguments[0]["createDate"].slice(11, 19));
-        $("input[name=updateDate]").val(arguments[0]["updateDate"].slice(0, 10) + ' ' + arguments[0]["createDate"].slice(11, 19));
+        conEdit.css({
+            "visibility": "visible",
+            "display": "flex"
+        });
+        formEdit.css({
+            "visibility": "visible",
+            "display": "flex"
+        });
+        formAdd.css({
+            "visibility": "hidden",
+            "display": "none"
+        });
+        formTitle.html("编辑学员信息");
+        $("#content-edit-form input[name=id]").val(arguments[0]["id"]);
+        $("#content-edit-form input[name=stuName]").val(arguments[0]["stuName"]);
+        $("#content-edit-form select[name=sex]").val(arguments[0]["sex"]);
+        $("#content-edit-form input[name=age]").val(arguments[0]["age"]);
+        $("#content-edit-form input[name=jsp]").val(arguments[0]["jsp"]);
+        $("#content-edit-form input[name=math]").val(arguments[0]["math"]);
+        $("#content-edit-form input[name=c]").val(arguments[0]["c"]);
+        $("#content-edit-form input[name=createDate]").val(arguments[0]["createDate"].slice(0, 10) + ' ' + arguments[0]["createDate"].slice(11, 19));
+        $("#content-edit-form input[name=updateDate]").val(arguments[0]["updateDate"].slice(0, 10) + ' ' + arguments[0]["createDate"].slice(11, 19));
     }
 
     function deleteStu(id) {
         $.ajax({
             type: "DELETE",
             url: "/api/student/delete/" + id,
-            dataType: "json",
-            success: function () {
-
-            },
-            error: function () {
-
-            }
+            dataType: "json"
         });
         window.location.reload();
     }
 
     function cancelSubmit() {
-        conEdit.style.visibility = "hidden";
+        conEdit.css({
+            "visibility": "hidden",
+            "display": "none"
+        });
+        formAdd.css({
+            "visibility": "hidden",
+            "display": "none"
+        });
+        formEdit.css({
+            "visibility": "hidden",
+            "display": "none"
+        });
     }
 
-    $(conEdit).submit(function (e) {
-        console.log("conEdit.serialize(): ", conEdit.serialize());
+    //序列化表单字段为json对象
+    $.fn.serializeFormToJson = function () {
+        let arr = $(this).serializeArray();
+        let param = {};
+        $.each(arr, function (i, obj) {
+            param[obj.name] = obj.value;
+        });
+        return param;
+    };
+
+    formAdd.on("submit", function (e) {
+        console.log("formAdd.serializeFormToJson(): ", formAdd.serializeFormToJson());
         e.preventDefault();
+
+        $.ajax({
+            type: "POST",
+            url: "/api/student/add",
+            data: formAdd.serializeFormToJson(),
+            dataType: "json"
+        });
+        window.location.reload();
+    });
+
+    formEdit.on("submit", function (e) {
+        console.log("formEdit.serializeFormToJson(): ", formEdit.serializeFormToJson());
+        e.preventDefault();
+
         $.ajax({
             type: "PUT",
             url: "/api/student/update",
-            data: $(this).serialize(),
-            dataType: "json",
-            success: function () {
-                alert("success!");
-            },
-            error: function () {
-
-            }
+            data: formEdit.serializeFormToJson(),
+            dataType: "json"
         });
-        return false;
+        window.location.reload();
     });
 </script>
 </body>
