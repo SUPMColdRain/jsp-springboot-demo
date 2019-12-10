@@ -1,5 +1,7 @@
 body {
     font-size: 12px;
+    width: 100vw;
+    height: 100vh;
     background: linear-gradient(33deg, hsl(283, 74%, 57%), hsl(349, 77%, 65%), hsl(6, 94%, 76%));
 }
 
@@ -26,6 +28,7 @@ body {
 .header-content-welcome .explain-title {
     font-size: 26px;
     font-weight: 900;
+    font-family: "Microsoft YaHei UI", sans-serif;
     letter-spacing: 6px;
     margin-bottom: 1em;
     background: linear-gradient(to right, hsl(240, 6%, 18%), hsl(242, 23%, 27%));
@@ -87,6 +90,7 @@ body {
 
 .content-form form label {
     position: relative;
+    margin-bottom: 1.4em;
 }
 
 .content-form form input {
@@ -97,7 +101,6 @@ body {
     font-size: 16px;
     width: 21.5em;
     height: 2.5em;
-    margin-bottom: 1.4em;
     padding: 6px 4px 2px 20px;
     color: hsl(0, 0%, 82%);
     background: hsl(240, 20%, 37%);
@@ -141,10 +144,7 @@ body {
     color: hsl(0, 0%, 100%);
 }
 
-#caseOne, #caseTwo {
-    position: absolute;
-    bottom: .2em;
-    right: 1em;
-    font-size: 12px;
-    color: hsl(0, 100%, 50%);
+#username-error, #password-error, #confirmPassword-error {
+    font-size: 16px;
+    color: crimson;
 }

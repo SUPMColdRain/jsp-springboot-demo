@@ -27,22 +27,19 @@
         <div class="form-title">
             <p>欢迎注册学生信息中心</p>
         </div>
-        <form method="post" id="signForm" onsubmit="return formValidator();">
+        <form action="register" method="post" id="signForm">
             <div class="container-input-field">
                 <label>
-                    <input type="text" name="user_serialNumber" placeholder="学号"
+                    <input type="text" name="username" placeholder="学号"
                            autofocus required aria-required="true"/>
-                    <span id="caseOne"></span>
                 </label>
                 <label>
-                    <input type="password" name="user_password" placeholder="密码"
-                           required aria-required="true" minlength="8"/>
-                    <span id="caseTwo"></span>
+                    <input type="password" name="password" placeholder="密码"
+                           required aria-required="true" minlength="8" id="password"/>
                 </label>
                 <label>
-                    <input type="password" name="user_confirmPassword" placeholder="确认密码"
+                    <input type="password" name="confirmPassword" placeholder="确认密码"
                            required aria-required="true" minlength="8"/>
-                    <span id="caseThird"></span>
                 </label>
             </div>
             <button type="submit">注册</button>
@@ -55,45 +52,54 @@
     </div>
 </div>
 
+<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
 <script type="text/javascript">
 
-    // 本来是弄了个"async-validator"的依赖包，加个实时表单*验证
-    // 好像是国人做的，不太好用，没有"redux-form"方便，而且bug很多
-    let signForm = document.querySelector('#signForm');
-    let caseOne = document.querySelector('#caseOne');
-    let caseTwo = document.querySelector('#caseTwo');
-    let caseThird = document.querySelector('#caseThird');
+    $(document).ready(function () {
 
-    function formValidator() {
-        console.log(signForm.user_serialNumber);
-        if (!/^201[6|7|8|9]\d{6}$/.test(signForm.user_serialNumber.value)) {
-            caseOne.innerHTML = "请输入2016级到2019级10位有效学号";
-            signForm.user_serialNumber.style.borderColor = 'red';
-            signForm.user_serialNumber.style.outlineColor = 'red';
-            signForm.user_serialNumber.style.boxShadow = '0 0 5px red';
-            signForm.user_serialNumber.focus();
-            signForm.user_serialNumber.select();
-            return false;
-        }
-
-        if (!/^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?\d)(?=.*?[!@#$%^&*()_+<>:"{}?|~])[a-zA-Z\d!@#$%^&*()_+<>:"{}?|~]*$/.test(signForm.user_password.value)) {
-            caseTwo.innerHTML = "须包含大小写字母、数字、特殊字符";
-            signForm.user_password.style.borderColor = 'red';
-            signForm.user_password.style.outlineColor = 'red';
-            signForm.user_password.style.boxShadow = '0 0 5px red';
-            signForm.user_password.focus();
-            signForm.user_password.select();
-            return false;
-        }
-
-        if (!signForm.user_confirmPassword.value === signForm.user_password.value) {
-            caseThird.innerHTML = "两次输入的密码不一致";
-            return false;
-        }
-
-        return true;
-    }
-
+        $('#signForm').validate({
+            onsubmit: true,
+            rules: {
+                username: {
+                    required: true,
+                    minlength: 10,
+                    maxlength: 10
+                },
+                password: {
+                    required: true,
+                    minlength: 8
+                },
+                confirmPassword: {
+                    required: true,
+                    equalTo: "#password"
+                }
+            },
+            messages: {
+                username: {
+                    required: "请输入学号",
+                    minlength: "请输入10位数有效学号",
+                    maxlength: "请输入10位数有效学号"
+                },
+                password: {
+                    required: "请输入密码",
+                    minlength: "密码长度不能小于8位数"
+                },
+                confirmPassword: {
+                    required: "请重新输入密码确认",
+                    equalTo: "两次输入的密码不一样"
+                }
+            },
+            submitHandler: function (form) {
+                window.localStorage.setItem("username", document.getElementById('signForm').username.value);
+                $(form).submit();
+            },
+            invalidHandler: function (event, validator) {
+                console.log("提交错误: validator: ", validator);
+            }
+        });
+    })
 </script>
 </body>
 </html>

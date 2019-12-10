@@ -7,24 +7,29 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
+<%
+    String visitor = (String) session.getAttribute("visitor");
+%>
+
 <div class="container-banner">
     <div class="content-banner">
         <div class="module-logo">
-            <img alt="" src="favicon.ico" width="36px" height="36px">
+            <img alt src="favicon.ico" width="36px" height="36px">
             <div class="module-logo-title">学生信息中心</div>
         </div>
         <div>
-            <img alt="" src="selfie.jpg" width="48px" height="64px">
+            <img alt src="selfie.jpg" width="48px" height="64px">
             <p>34号王安2017005169</p>
         </div>
         <div class="container-banner-tags">
-            <div>学员</div>
+            <div>
+                <p id="username"></p>
+                <a href="logout" style="color: antiquewhite;">退出</a>
+                <div>网站访问量：<span style='font-size: 18px;color: red;'><%=visitor%></span></div>
+            </div>
         </div>
         <div>
-            <img alt="" src="avatar.png" width="36px" height="36px">
-            <div>
-                <div></div>
-            </div>
+            <img alt src="avatar.png" width="36px" height="36px">
         </div>
     </div>
 </div>

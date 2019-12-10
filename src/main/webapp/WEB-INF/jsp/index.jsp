@@ -141,7 +141,8 @@
     </div>
 </dialog>
 
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+        crossorigin="anonymous"></script>
 <script type="text/javascript">
     let conEdit = $("#container-edit");
     let stuQuery = $("#student-query");
@@ -150,47 +151,6 @@
     let formAdd = $("#content-add-form");
     let formEdit = $("#content-edit-form");
     let formTitle = $("#content-form-title");
-
-    $(document).ready(function () {
-        stuQuery.css({
-            "visibility": "hidden",
-            "display": "none"
-        }).empty();
-
-        stuList.css({
-            "visibility": "visible",
-            "display": "flex"
-        }).empty();
-
-        $.ajax({
-            type: "GET",
-            url: "/api/student/list",
-            cache: false,
-            dataType: 'json',
-            success: function (data) {
-                console.log('list data: ', data);
-
-                $.each(data, function (n, value) {
-                    let str = "<li class='content-table'>" +
-                        "<div>" + value["id"] + "</div>" +
-                        "<div>" + value["stuName"] + "</div>" +
-                        "<div>" + value["sex"] + "</div>" +
-                        "<div>" + value["age"] + "</div>" +
-                        "<div>" + value["jsp"] + "</div>" +
-                        "<div>" + value["math"] + "</div>" +
-                        "<div>" + value["c"] + "</div>" +
-                        "<div>" + value["createDate"].slice(0, 10) + ' ' + value["createDate"].slice(11, 19) + "</div>" +
-                        "<div>" + value["updateDate"].slice(0, 10) + ' ' + value["updateDate"].slice(11, 19) + "</div>" +
-                        "<div><button onclick='updateStu(" + JSON.stringify(value) + ")'>编辑</button></div>" +
-                        "<div><button onclick='deleteStu(" + value["id"] + ")'>删除</button></div></li>";
-                    stuList.append(str);
-                });
-            },
-            error: function (error) {
-                throw error;
-            }
-        })
-    });
 
     function showTips(content, x, y, time) {
         let tipsDiv = '<div class="tipsClass">' + content + '</div>';
@@ -291,35 +251,25 @@
         });
     }
 
-    //序列化表单字段为json对象
-    $.fn.serializeFormToJson = function () {
-        let arr = $(this).serializeArray();
-        let param = {};
-        $.each(arr, function (i, obj) {
-            param[obj.name] = obj.value;
-        });
-        return param;
-    };
+    $(document).ready(function () {
+        document.getElementById("username").innerHTML = localStorage.getItem("username");
 
-    formQuery.on("submit", function (e) {
-        e.preventDefault();
+        stuQuery.css({
+            "visibility": "hidden",
+            "display": "none"
+        }).empty();
+        stuList.css({
+            "visibility": "visible",
+            "display": "flex"
+        }).empty();
 
         $.ajax({
             type: "GET",
-            url: "/api/student/query/" + formQuery.serialize().slice(8),
+            url: "/api/student/list",
             cache: false,
-            dataType: "json",
+            dataType: 'json',
             success: function (data) {
-                console.log('query data: ', data);
-
-                stuQuery.css({
-                    "visibility": "visible",
-                    "display": "flex"
-                }).empty();
-                stuList.css({
-                    "visibility": "hidden",
-                    "display": "none"
-                }).empty();
+                console.log('list data: ', data);
 
                 $.each(data, function (n, value) {
                     let str = "<li class='content-table'>" +
@@ -334,49 +284,101 @@
                         "<div>" + value["updateDate"].slice(0, 10) + ' ' + value["updateDate"].slice(11, 19) + "</div>" +
                         "<div><button onclick='updateStu(" + JSON.stringify(value) + ")'>编辑</button></div>" +
                         "<div><button onclick='deleteStu(" + value["id"] + ")'>删除</button></div></li>";
-                    stuQuery.append(str);
+                    stuList.append(str);
                 });
             },
             error: function (error) {
                 throw error;
             }
         });
-    });
 
-    formAdd.on("submit", function (e) {
-        console.log("formAdd.serializeFormToJson(): ", formAdd.serializeFormToJson());
-        e.preventDefault();
+        //序列化表单字段为json对象
+        $.fn.serializeFormToJson = function () {
+            let arr = $(this).serializeArray();
+            let param = {};
+            $.each(arr, function (i, obj) {
+                param[obj.name] = obj.value;
+            });
+            return param;
+        };
 
-        $.ajax({
-            type: "POST",
-            url: "/api/student/add",
-            data: formAdd.serializeFormToJson(),
-            dataType: "json"
+        formQuery.on("submit", function (e) {
+            e.preventDefault();
+
+            $.ajax({
+                type: "GET",
+                url: "/api/student/query/" + formQuery.serialize().slice(8),
+                cache: false,
+                dataType: "json",
+                success: function (data) {
+                    console.log('query data: ', data);
+
+                    stuQuery.css({
+                        "visibility": "visible",
+                        "display": "flex"
+                    }).empty();
+                    stuList.css({
+                        "visibility": "hidden",
+                        "display": "none"
+                    }).empty();
+
+                    $.each(data, function (n, value) {
+                        let str = "<li class='content-table'>" +
+                            "<div>" + value["id"] + "</div>" +
+                            "<div>" + value["stuName"] + "</div>" +
+                            "<div>" + value["sex"] + "</div>" +
+                            "<div>" + value["age"] + "</div>" +
+                            "<div>" + value["jsp"] + "</div>" +
+                            "<div>" + value["math"] + "</div>" +
+                            "<div>" + value["c"] + "</div>" +
+                            "<div>" + value["createDate"].slice(0, 10) + ' ' + value["createDate"].slice(11, 19) + "</div>" +
+                            "<div>" + value["updateDate"].slice(0, 10) + ' ' + value["updateDate"].slice(11, 19) + "</div>" +
+                            "<div><button onclick='updateStu(" + JSON.stringify(value) + ")'>编辑</button></div>" +
+                            "<div><button onclick='deleteStu(" + value["id"] + ")'>删除</button></div></li>";
+                        stuQuery.append(str);
+                    });
+                },
+                error: function (error) {
+                    throw error;
+                }
+            });
         });
 
-        cancelSubmit();
-        showTips("新增成功", "3em", "2em", 3);
-        setTimeout(function () {
-            window.location.reload();
-        }, 1000)
-    });
+        formAdd.on("submit", function (e) {
+            console.log("formAdd.serializeFormToJson(): ", formAdd.serializeFormToJson());
+            e.preventDefault();
 
-    formEdit.on("submit", function (e) {
-        console.log("formEdit.serializeFormToJson(): ", formEdit.serializeFormToJson());
-        e.preventDefault();
+            $.ajax({
+                type: "POST",
+                url: "/api/student/add",
+                data: formAdd.serializeFormToJson(),
+                dataType: "json"
+            });
 
-        $.ajax({
-            type: "PUT",
-            url: "/api/student/update",
-            data: formEdit.serializeFormToJson(),
-            dataType: "json"
+            cancelSubmit();
+            showTips("新增成功", "3em", "2em", 3);
+            setTimeout(function () {
+                window.location.reload();
+            }, 1000)
         });
 
-        cancelSubmit();
-        showTips("更新成功", "3em", "2em", 3);
-        setTimeout(function () {
-            window.location.reload();
-        }, 1000)
+        formEdit.on("submit", function (e) {
+            console.log("formEdit.serializeFormToJson(): ", formEdit.serializeFormToJson());
+            e.preventDefault();
+
+            $.ajax({
+                type: "PUT",
+                url: "/api/student/update",
+                data: formEdit.serializeFormToJson(),
+                dataType: "json"
+            });
+
+            cancelSubmit();
+            showTips("更新成功", "3em", "2em", 3);
+            setTimeout(function () {
+                window.location.reload();
+            }, 1000)
+        });
     });
 </script>
 </body>

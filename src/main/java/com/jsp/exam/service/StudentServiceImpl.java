@@ -31,6 +31,11 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    public Student findStudentOne(int id) {
+        return studentDao.findById(id).get();
+    }
+
+    @Override
     public List<Student> findStudent(String id) {
         return studentDao.query(id);
     }
