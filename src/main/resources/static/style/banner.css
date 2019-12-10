@@ -38,7 +38,7 @@
 
 .container-banner-tags {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     flex-direction: row;
     width: 60em;

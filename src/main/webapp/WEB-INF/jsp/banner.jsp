@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%
-    String visitor = (String) session.getAttribute("visitor");
+    int visitor = session.getAttribute("visitor") != null ? (int) session.getAttribute("visitor") : 0;
 %>
 
 <div class="container-banner">
@@ -24,8 +24,12 @@
         <div class="container-banner-tags">
             <div>
                 <p id="username"></p>
+            </div>
+            <div>
+                <p>网站访问量：<span style='font-size: 18px;color: red;'><%=visitor%></span></p>
+            </div>
+            <div>
                 <a href="logout" style="color: antiquewhite;">退出</a>
-                <div>网站访问量：<span style='font-size: 18px;color: red;'><%=visitor%></span></div>
             </div>
         </div>
         <div>

@@ -3,7 +3,6 @@ package com.jsp.exam.controller;
 import com.jsp.exam.entity.User;
 import com.jsp.exam.service.StudentService;
 import com.jsp.exam.service.UserService;
-import org.dom4j.rule.Mode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
 
 // @RestController注解集成了@ResponseBody注解,无需再在每个方法前添加
 // @Controller注解默认会返回到视图页面,如: index.jsp
@@ -41,6 +38,7 @@ public class MAVController {
          */
         HttpSession session = request.getSession();
         int visitor = session.getAttribute("visitor") != null ? (int) session.getAttribute("visitor") : 0;
+        System.out.println("网站访问量：" + visitor);
         session.setAttribute("visitor", visitor + 1);
         return mav;
     }
@@ -104,7 +102,7 @@ public class MAVController {
     public ModelAndView logout() {
         logger.info("请求登出清除token");
         ModelAndView mav = new ModelAndView();
-        mav.setViewName("signin");
+        mav.setViewName("signIn");
         return mav;
     }
 }
