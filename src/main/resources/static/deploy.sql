@@ -115,3 +115,5 @@ begin
 end;
 
 call student_add(50);
+
+INSERT INTO user (id, userPwd) VALUES (2017001001, 12345678);

@@ -6,9 +6,9 @@ import org.slf4j.LoggerFactory;
 import javax.servlet.*;
 import java.io.IOException;
 
-public class GlobalFilter implements Filter {
+public class TimeFilter implements Filter {
 
-    private final Logger logger = LoggerFactory.getLogger(GlobalFilter.class);
+    private final Logger logger = LoggerFactory.getLogger(TimeFilter.class);
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {

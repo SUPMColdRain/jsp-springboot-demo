@@ -1,7 +1,7 @@
 package com.jsp.exam.configuration;
 
-import com.jsp.exam.filter.GlobalFilter;
-import com.jsp.exam.interceptor.GlobalInterceptor;
+import com.jsp.exam.filter.TimeFilter;
+import com.jsp.exam.interceptor.SignInterceptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,21 +20,21 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
     private final Logger logger = LoggerFactory.getLogger(WebMvcConfiguration.class);
 
     @Autowired
-    GlobalInterceptor globalInterceptor;
+    SignInterceptor signInterceptor;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         logger.info("add interceptors");
-        registry.addInterceptor(new GlobalInterceptor())
+        registry.addInterceptor(new SignInterceptor())
                 .excludePathPatterns(Arrays.asList("/favicon.ico", "/style/**", "/selfie.jpg", "/avatar.png"));
     }
 
     @Bean
     public FilterRegistrationBean globalFilter() {
         FilterRegistrationBean registrationBean = new FilterRegistrationBean();
-        GlobalFilter globalFilter = new GlobalFilter();
+        TimeFilter timeFilter = new TimeFilter();
 
-        registrationBean.setFilter(globalFilter);
+        registrationBean.setFilter(timeFilter);
 
         ArrayList<String> urls = new ArrayList<>();
         urls.add("/*");

@@ -29,8 +29,6 @@ public class MAVController {
 
     @RequestMapping(path = "/")
     public ModelAndView homePage(HttpServletRequest request) {
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("index");
         System.out.println(">>> Into Index Page");
 
         /**
@@ -40,69 +38,63 @@ public class MAVController {
         int visitor = session.getAttribute("visitor") != null ? (int) session.getAttribute("visitor") : 0;
         System.out.println("网站访问量：" + visitor);
         session.setAttribute("visitor", visitor + 1);
-        return mav;
+        return new ModelAndView("index");
     }
 
     @RequestMapping(path = "/signup")
     public ModelAndView signUp() {
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("signUp");
         System.out.println(">>> Into Sign Up Page");
-        return mav;
+        return new ModelAndView("signUp");
     }
 
     @RequestMapping(path = "/signin")
     public ModelAndView signIn() {
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("signIn");
         System.out.println(">>> Into Sign In Page");
-        return mav;
+        return new ModelAndView("signIn");
     }
 
     @RequestMapping(path = "/login")
     public ModelAndView login(HttpServletRequest request) {
-        logger.info("请求登录获取token");
-        ModelAndView mav = new ModelAndView();
+
+        HttpSession session = request.getSession(true);
+        session.setAttribute("username", request.getParameter("username"));
 
         int id = Integer.parseInt(request.getParameter("username"));
         String userPwd = request.getParameter("password");
 
         if (userService.findUser(id) == null) {
-            mav.setViewName("signUp");
+            return new ModelAndView("forward:/signup");
         } else if (userService.findUser(id).getId() == id &&
                 userService.findUser(id).getUserPwd().equals(userPwd)) {
-            mav.setViewName("index");
+            return new ModelAndView("forward:/");
         } else {
-            mav.setViewName("signIn");
+            return new ModelAndView("forward:/signin");
         }
-        return mav;
     }
 
     @RequestMapping(path = "/register")
     public ModelAndView register(HttpServletRequest request) {
-        logger.info("请求注册获取token");
-        ModelAndView mav = new ModelAndView();
+
+        HttpSession session = request.getSession(true);
+        session.setAttribute("username", request.getParameter("username"));
 
         int id = Integer.parseInt(request.getParameter("username"));
         String userPwd = request.getParameter("password");
 
-        if (studentService.findStudentOne(id) == null) {
-            mav.setViewName("signUp");
+        System.out.println("studentService.findStudentOne(id)" + studentService.findStudentOne(id));
+        if (studentService.findStudentOne(id) != null) {
+            return new ModelAndView("forward:/signup");
         } else {
             User user = new User();
             user.setId(id);
             user.setUserPwd(userPwd);
             userService.addUser(user);
-            mav.setViewName("index");
+            return new ModelAndView("forward:/");
         }
-        return mav;
     }
 
     @RequestMapping(path = "/logout")
     public ModelAndView logout() {
-        logger.info("请求登出清除token");
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("signIn");
-        return mav;
+        return new ModelAndView("forward://signin");
     }
 }
