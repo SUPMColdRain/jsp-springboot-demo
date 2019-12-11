@@ -18,6 +18,8 @@
         <java.version>11</java.version>
     </properties>
 
+    <packaging>war</packaging>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -72,6 +74,12 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.1.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
             <groupId>org.apache.tomcat.embed</groupId>
             <artifactId>tomcat-embed-jasper</artifactId>
             <scope>provided</scope>
@@ -107,15 +115,11 @@
     </dependencies>
 
     <build>
+        <finalName>exam</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <fork>true</fork>
-                    <!-- spring-boot:run 中文乱码解决 -->
-                    <jvmArguments>-Dfile.encoding=UTF-8</jvmArguments>
-                </configuration>
             </plugin>
         </plugins>
     </build>
