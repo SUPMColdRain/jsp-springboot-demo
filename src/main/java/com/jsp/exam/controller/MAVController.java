@@ -82,7 +82,7 @@ public class MAVController {
         String userPwd = request.getParameter("password");
 
         System.out.println("studentService.findStudentOne(id)" + studentService.findStudentOne(id));
-        if (studentService.findStudentOne(id) != null) {
+        if (studentService.findStudentOne(id) == null) {
             return new ModelAndView("forward:/signup");
         } else {
             User user = new User();
@@ -95,6 +95,6 @@ public class MAVController {
 
     @RequestMapping(path = "/logout")
     public ModelAndView logout() {
-        return new ModelAndView("forward://signin");
+        return new ModelAndView("forward:/signin");
     }
 }
