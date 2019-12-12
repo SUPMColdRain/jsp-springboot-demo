@@ -81,7 +81,6 @@ public class MAVController {
         int id = Integer.parseInt(request.getParameter("username"));
         String userPwd = request.getParameter("password");
 
-        System.out.println("studentService.findStudentOne(id)" + studentService.findStudentOne(id));
         if (studentService.findStudentOne(id) == null) {
             return new ModelAndView("forward:/signup");
         } else {
