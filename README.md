@@ -23,7 +23,7 @@
 >##### 使用相关 DBMA 执行SQL脚本（如 DataGrip 等）  
 
 ## 部署 Tomcat
->##### 打开`apache-tomcat-*/conf/conf/server.xml`，修改Tomcat的根目录
+>##### 打开`apache-tomcat-*/conf/server.xml`，修改Tomcat的根目录
 >_(为了消去浏览器路径中`/exam`对重定向与API的影响)_
 >```xml
 ><Host name="localhost"  appBase="webapps" unpackWARs="true" autoDeploy="true">
@@ -38,7 +38,7 @@
 >##### 将`exam.war`移至`apache-tomcat-*/webapps/`下
 >##### 在`apache-tomcat-*/bin/`运行 Tomcat 
 >```shell script
->startup.bat
+>> startup.bat
 >```
 >_(请确保已安装JDK或JRE，并设置好JAVA_HOME、JRE_HOME、CATLINA_HOME等环境变量)_
 
