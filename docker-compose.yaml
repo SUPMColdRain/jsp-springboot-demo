@@ -1,0 +1,31 @@
+# .yml & .yaml 真的腊(垃)鸡(圾)，怎么会有这么多人喜欢用......
+# 不能用 Tab 制表符，只能打两个空格
+# 官方文档就像20世纪上半叶用大屁股写的CSS
+
+version: "3.7"
+
+services:
+  web:
+    container_name: tomcat_test
+    image: tomcat:9.0.30
+    restart: unless-stopped
+    ports: 
+      - "80:8000"
+    links:
+      - "db:database"
+    environment:
+      - SPRING_DATASOURCE_URL = jdbc:mysql://database:3307/test?useUnicode=true&characterEncoding=utf8&useSSL=false
+    volumes:
+      - C:\Users\18406\IdeaProjects\jsp-springboot-jpa-mysql\target\exam.war:/usr/local/tomcat/webapps/exam.war
+
+  db:
+    container_name: mysql_test
+    image: mysql:8.0.18
+    restart: unless-stopped
+    ports: 
+      - "3307:3306"
+    environment: 
+      MYSQL_ROOT_PASSWORD: toor
+    command: ['mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
+    volumes:
+      - C:\Users\18406\IdeaProjects\jsp-springboot-jpa-mysql\src\main\resources\static\deploy.sql:/docker-entrypoint-initdb.d/deploy.sql
