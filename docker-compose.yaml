@@ -5,27 +5,30 @@
 version: "3.7"
 
 services:
-  web:
-    container_name: tomcat_test
-    image: tomcat:9.0.30
-    restart: unless-stopped
-    ports: 
-      - "80:8000"
-    links:
-      - "db:database"
-    environment:
-      - SPRING_DATASOURCE_URL = jdbc:mysql://database:3307/test?useUnicode=true&characterEncoding=utf8&useSSL=false
-    volumes:
-      - C:\Users\18406\IdeaProjects\jsp-springboot-jpa-mysql\target\exam.war:/usr/local/tomcat/webapps/exam.war
-
   db:
-    container_name: mysql_test
+    container_name: mysql
     image: mysql:8.0.18
     restart: unless-stopped
-    ports: 
-      - "3307:3306"
-    environment: 
+    ports:
+      - "3306:3306"
+    environment:
       MYSQL_ROOT_PASSWORD: toor
     command: ['mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
     volumes:
-      - C:\Users\18406\IdeaProjects\jsp-springboot-jpa-mysql\src\main\resources\static\deploy.sql:/docker-entrypoint-initdb.d/deploy.sql
+      - ./deploy.sql:/docker-entrypoint-initdb.d/deploy.sql
+
+  web:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    container_name: tomcat
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/test?serverTimezone=UTC
+    links:
+      - db
+    depends_on:
+      - db
+    command: ["./wait-for-postgres.sh", "db", "python", "app.py"]
